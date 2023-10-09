@@ -40,7 +40,7 @@ def select_action(enabled):
     Choose the action + args whose next state has been used the least
     If more than one action has been used that many of times, choose randomly
     """
-    # print 'enabled %s, coverage: %s' % (enabled, coverage)
+    print('# enabled %s, coverage: %s' % (len(enabled), coverage)))
     if not enabled: # empty 
       return (None, None)
     else:
@@ -48,14 +48,14 @@ def select_action(enabled):
       # next line fails if enabled is empty - but it isn't, see above
       # count in next line fails if coverage is empty - possible?
       # no, because additems (above) will execute, and enabled is not empty
-      least = min([ count(coverage,next) 
-                    for (aname,args,result,next,properties) in enabled ]) 
-      aleast = [(aname,args,next) 
+      least = min([count(coverage, next)
+                    for (aname, args, result, next, properties) in enabled])
+      aleast = [(aname, args, next)
                 for (aname,args,result,next,properties) in enabled 
                 if count(coverage, next) == least]
       # next line fails if aleast is empty - is that possible?
       # could be possible if none in enabled results in next state in least
       # BUT that's not possible because least (above) is built using enabled
-      (aname,args,next) = random.choice(aleast)
-      incr(coverage,next)
-      return (aname,args)
+      (aname, args, next) = random.choice(aleast)
+      incr(coverage, next)
+      return (aname, args)
