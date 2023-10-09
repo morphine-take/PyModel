@@ -48,7 +48,8 @@ class ProductModelProgram(object):
         #  so we find out what type to wrap each one in
         #  by checking for one of each type's required attributes using hasattr
         for mname in args:  # args is list of module name
-            self.module[mname] = importlib.import_module(mname)
+            package = os.path.splitext(os.path.basename(mname))[0]
+            self.module[mname] = importlib.import_module(mname, package)
             if hasattr(self.module[mname], 'graph'):
                 self.mp[mname] = FSM(self.module[mname], options.exclude, options.action)
             # for backwards compatibility we accept all of these test_suite variants
@@ -284,6 +285,7 @@ class ProductModelProgram(object):
         Execute action with aname in all the mp where it is enabled,
         return result from last mp arg
         """
+
         result = None
         for m in list(self.mp.values()):
             # aname might be an unshared action, not present in all mp
