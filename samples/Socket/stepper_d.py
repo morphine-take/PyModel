@@ -1,5 +1,5 @@
 """
-stepper_d - ontrollable, synchronous, deterministic stepper for msocket
+stepper_d - controllable, synchronous, deterministic stepper for msocket
 
 Controllable means all actions are functions that are called by the
 stepper.  No actions are events that are detected by the stepper.
